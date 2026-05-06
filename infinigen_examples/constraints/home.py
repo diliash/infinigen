@@ -32,6 +32,8 @@ from . import util as cu
 from .semantics import home_asset_usage
 
 
+
+
 def sample_home_constraint_params():
     return dict(
         # what pct of the room floorplan should we try to fill with furniture?
@@ -857,7 +859,7 @@ def home_furniture_constraints():
             * sidetables.related_to(beds.related_to(r)).count().in_range(0, 2)
             * rugs.related_to(r).count().in_range(0, 1)
             * desks.related_to(r).count().in_range(0, 1)
-            * storage_freestanding.related_to(r).count().in_range(2, 5)
+            * storage_freestanding.related_to(r).count().in_range(1, 5)
             * floor_lamps.related_to(r).count().in_range(0, 1)
             * storage.related_to(r).all(
                 lambda s: (

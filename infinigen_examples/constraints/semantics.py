@@ -3,7 +3,9 @@
 
 # Authors: Alexander Raistrick
 
+import gin
 import infinigen.assets.static_assets as static_assets
+
 from infinigen.assets.objects import (
     appliances,
     bathroom,
@@ -333,3 +335,4 @@ def home_asset_usage():
     # endregion
 
     return used_as
+    return getattr(Semantics, role, None)

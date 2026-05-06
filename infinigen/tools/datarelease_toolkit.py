@@ -334,12 +334,17 @@ def reorganize_old_framesfolder(frames_old):
             continue
         dtype, *_ = img_path.name.split("_")
         idxs = parse_suffix(img_path.name)
+        if idxs is None or idxs.get("subcam") is None:
+            continue  # skip files whose names don't match the expected suffix pattern
         new_path = frames_dest / dtype / f"camera_{idxs['subcam']}" / img_path.name
         new_path.parent.mkdir(exist_ok=True, parents=True)
         shutil.move(img_path, new_path)
 
     if frames_dest != frames_old:
-        frames_old.rmdir()
+        try:
+            frames_old.rmdir()  # only succeeds if truly empty
+        except OSError:
+            pass  # non-render files (blend, csv, json) remain — that's fine
 
 
 def fix_frames_folderstructure(p):
